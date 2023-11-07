@@ -18,29 +18,29 @@ export const DELETE = async (request, { params }) => {
 }
 
 
-// export const PATCH = async (request, { params }) => {
-//     const { bookName, bookTopic } = await request.json();
+export const PATCH = async (request, { params }) => {
+    const { bookName, bookTopic } = await request.json();
 
 
-//     try {
-//         await connectToDB();
-//         const existingBook = await BookInfo.findById(params.id);
+    try {
+        await connectToDB();
+        const existingBook = await BookInfo.findById(params.id);
 
-//         if (!existingBook) {
-//             return new Response("book not found", { status: 404 })
-//         }
+        if (!existingBook) {
+            return new Response("book not found", { status: 404 })
+        }
 
-//         existingBook.name = bookName;
-//         existingBook.topic = bookTopic;
-//         console.log(existingBook, 'existing Book')
+        existingBook.name = bookName;
+        existingBook.topic = bookTopic;
+        console.log(existingBook, 'existing Book')
 
-//         await existingBook.save();
-//         return new Response("book  found", { status: 200 })
+        await existingBook.save();
+        return new Response("book  found", { status: 200 })
 
-//     }
-//     catch (error) {
+    }
+    catch (error) {
 
-//         return new Response("error updating data", { status: 500 })
-//     }
+        return new Response("error updating data", { status: 500 })
+    }
 
-// }
+}

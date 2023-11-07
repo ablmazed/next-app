@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Info from "@/app/components/info"
+
 const page = () => {
     const [books, setBooks] = useState([])
 
@@ -37,6 +38,8 @@ const page = () => {
             }
         }
 
+        
+
 
 
         // try {
@@ -56,6 +59,36 @@ const page = () => {
     }
 
 
+    const handleUpdate = async (book, newBookName) => {
+        console.log('update successfully');
+        try {
+            const response = await fetch(`/api/book/${book._id}`, {
+                method: "PATCH",
+                body: JSON.stringify(
+                    {
+                        bookName: newBookName,
+                        bookTopic: 'changed'
+                    }
+                )
+            });
+
+            console.log('response ', response)
+            if (response.ok) {
+                console.log('response2 ', response)
+                alert('update successfully');
+                fetchBook();
+
+            }
+
+
+        }
+        catch (error) {
+            console.log(error)
+        }
+
+    }
+
+
 
 
 
@@ -67,7 +100,14 @@ const page = () => {
             <h2> {books.length} </h2>
             <p>{
 
-            books.map(book => <Info key = {book.id} book = {book} handleDelete={handleDelete} ></Info>)
+            books.map(book => <Info 
+                key = {book.id} 
+                book = {book} 
+                handleDelete={handleDelete} 
+                handleUpdate = {handleUpdate}
+            
+            >
+            </Info>)
             
             }</p>
         </div>
